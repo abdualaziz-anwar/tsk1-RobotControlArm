@@ -2,7 +2,7 @@
     $dbServerName = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "task1";
+    $dbName = "robottable";
 
     $conn = mysqli_connect($dbServerName, $dbUsername, $dbPassword, $dbName);
 
@@ -16,10 +16,12 @@
  <!-- --------------------------------------------- -->
  <head>
  	<title>Test</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
  </head>
  <!-- --------------------------------------------- -->
  
  <body>
+
  	<?php
  	$eng1=$_POST["eng1"];
  	$eng2=$_POST["eng2"];
@@ -27,16 +29,23 @@
  	$eng4=$_POST["eng4"];
  	$eng5=$_POST["eng5"];
 
- 	$query="insert into task1(m1,m2,m3,m4,m5,m6)values({$m1},{$m2},{$m3},{$m4},{$m5},{$m6})";
+  if ( in_array( "Save", $_POST ) ) {
+    $Status = 0;
+  } else if ( in_array( "Play", $_POST ) ) {
+    $Status = 1;
+  }
+ 	$query="insert into robottable(eng1,eng2,eng3,eng4,eng5,Status)values({$eng1},{$eng2},{$eng3},{$eng4},{$eng5},{$Status})";
     $result=mysqli_query($conn,$query);
 
      if ($result){
-       echo "Data added sucessfully";
+       echo "Data added sucessfully.";
+
    }else{
        die("Can Not conenct to the database".mysqli_connect_error($conn));
    }
 
  	?>
+  <a href="robot.html">Get Back</a>
 
 
  </body>
